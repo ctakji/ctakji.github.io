@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사진 - 김중인 세무사</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/gallery.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="header"></div>
+
+    <main>
+        <div class="gallery-container">
+            <h2>사진</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openModal(0)">
+                    <img src="images/office1.png" alt="사무실 외부">
+                    <div class="gallery-item-content">
+                        <h3>사무실 외부</h3>
+                        <p>세무법인대양 중앙지점의 사무실 외부 사진입니다.</p>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openModal(1)">
+                    <img src="images/office2.png" alt="사무실 내부">
+                    <div class="gallery-item-content">
+                        <h3>사무실 내부</h3>
+                        <p>세무법인대양 중앙지점의 사무실 내부 사진입니다.</p>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openModal(2)">
+                    <img src="images/office3.png" alt=주요 서비스">
+                    <div class="gallery-item-content">
+                        <h3>주요 서비스</h3>
+                        <p>세무법인대양 중앙지점의 주요 서비스입니다.</p>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openModal(3)">
+                    <img src="images/office4.png" alt="상담실">
+                    <div class="gallery-item-content">
+                        <h3>상담실</h3>
+                        <p>세무법인대양 중앙지점의 상담실 사진입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <button class="modal-nav modal-prev" onclick="changeImage(-1)">&#10094;</button>
+            <img class="modal-image" id="modalImage" src="" alt="">
+            <button class="modal-nav modal-next" onclick="changeImage(1)">&#10095;</button>
+            <div class="modal-caption" id="modalCaption"></div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const images = [
+            {
+                src: 'images/office1.png',
+                alt: '사무실 전경',
+                caption: '세무법인대양 중앙지점의 모던한 사무실'
+            },
+            {
+                src: 'images/office2.png',
+                alt: '상담 모습',
+                caption: '고객님과의 전문적인 세무 상담'
+            },
+            {
+                src: 'images/office3.png',
+                alt: '팀 활동',
+                caption: '전문가 팀의 활발한 업무 현장'
+            },
+            {
+                src: 'images/office4.png',
+                alt: '팀 활동',
+                caption: '전문가 팀의 활발한 업무 현장'
+            }
+        ];
+
+        let currentImageIndex = 0;
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+
+        function openModal(index) {
+            currentImageIndex = index;
+            updateModalImage();
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function updateModalImage() {
+            const image = images[currentImageIndex];
+            modalImage.src = image.src;
+            modalImage.alt = image.alt;
+            modalCaption.textContent = image.caption;
+        }
+
+        function changeImage(direction) {
+            currentImageIndex = (currentImageIndex + direction + images.length) % images.length;
+            updateModalImage();
+        }
+
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (!modal.classList.contains('show')) return;
+            
+            switch(event.key) {
+                case 'Escape':
+                    closeModal();
+                    break;
+                case 'ArrowLeft':
+                    changeImage(-1);
+                    break;
+                case 'ArrowRight':
+                    changeImage(1);
+                    break;
+            }
+        });
+    </script>
+</body>
+</html> 

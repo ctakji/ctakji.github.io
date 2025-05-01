@@ -1,0 +1,156 @@
+/* 인사말 페이지 스타일 */
+.greeting-section {
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    padding: 2rem;
+}
+
+.greeting-container {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.greeting-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-color);
+}
+
+.greeting-text h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: left;
+    color: var(--text-color);
+}
+
+.greeting-text p {
+    margin-bottom: 1.5rem;
+}
+
+.greeting-list {
+    margin: 1.5rem 0;
+    padding-left: 2rem;
+}
+
+.greeting-list li {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+    position: relative;
+}
+
+.greeting-list li:last-child {
+    margin-bottom: 0;
+}
+
+.greeting-image {
+    position: relative;
+}
+
+.greeting-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+/* 이미지 모달 스타일 */
+.modal {
+    display: none; /* 기본 숨김 */
+    position: fixed; /* 화면 고정 */
+    z-index: 1001; /* 다른 요소 위에 표시 (헤더보다 높게) */
+    left: 0;
+    top: 0;
+    width: 100%; /* 전체 너비 */
+    height: 100%; /* 전체 높이 */
+    overflow: auto; /* 내용 많을 경우 스크롤 */
+    background-color: rgba(0, 0, 0, 0.85); /* 반투명 검은 배경 */
+    /* display: flex; Flexbox는 JS에서 처리하므로 제거 가능하나, 유지해도 무방 */
+    align-items: center;
+    justify-content: center;
+    padding: 20px; /* 모달 내부 여백 */
+}
+
+.modal-content { /* 모달 이미지 */
+    display: block;
+    margin: auto;
+    max-width: 90%; /* 최대 너비 제한 */
+    max-height: 90vh; /* 최대 높이 제한 (뷰포트 높이 기준) */
+    width: auto; /* 너비 자동 조정 */
+    height: auto; /* 높이 자동 조정 */
+    object-fit: contain; /* 이미지 비율 유지 */
+    animation: zoomIn 0.3s ease; /* 간단한 확대 애니메이션 */
+}
+
+.modal-close { /* 닫기 버튼 */
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 1002; /* 이미지 위에 표시 */
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 확대 애니메이션 */
+@keyframes zoomIn {
+    from {transform: scale(0.8); opacity: 0;}
+    to {transform: scale(1); opacity: 1;}
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .greeting-container {
+        padding: 1rem;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .greeting-text {
+        padding: 1.5rem;
+        order: 1; /* 모바일에서 텍스트가 아래로 */
+    }
+
+    .greeting-image {
+        order: 0; /* 모바일에서 이미지가 위로 */
+    }
+
+    .greeting-text h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.2rem;
+    }
+
+    /* 모바일에서 모달 닫기 버튼 숨기기 */
+    .modal-close {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .greeting-container {
+        padding: 0.8rem;
+    }
+
+    .greeting-text {
+        padding: 1.2rem;
+    }
+
+    .greeting-text h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .greeting-text p {
+        font-size: 0.95rem;
+    }
+} 
